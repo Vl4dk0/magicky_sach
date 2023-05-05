@@ -22,6 +22,13 @@ def try_promote(board):
         if board[7][i] and board[7][i].type == "P" and board[7][i].color == "black" and not board[7][i].promoted:
             board[7][i].promote()
 
+def check_draw(board):
+    for i in range(8):
+        for j in range(8):
+            if board[i][j] and board[i][j].type in ["P", "N", "B", "R"]:
+                return False
+    return True
+
 def check_win(board):
     white_king = False
     black_king = False
@@ -60,6 +67,9 @@ def select(square):
             
             try_promote(BOARD.board)
 
+            res = check_draw(BOARD.board) # check if game is draw after last move
+            if res: c.create_text(WIDTH/2, HEIGHT/2, text="Draw!", font="Arial 50", fill="black")
+            
             res = check_win(BOARD.board) # check if game is over after last move
             if res: c.create_text(WIDTH/2, HEIGHT/2, text=f"{res} wins!", font="Arial 50", fill="black")
         
@@ -94,6 +104,6 @@ root.bind("<Button-3>", lambda event: deselect()) # deselect on right click
 
 # from top left to bottom right, row by row.
 # e.g. r = black rook, N = white knight, # = empty square
-BOARD.set_board("rnbqkbnrpppppppp################################PPPPPPPPRNBQKBNR")
-
+#BOARD.set_board("rnbqkbnrpppppppp################################PPPPPPPPRNBQKBNR")
+BOARD.set_board("####k###########################################N###########K###")
 c.mainloop()
