@@ -104,6 +104,6 @@ root.bind("<Button-3>", lambda event: deselect()) # deselect on right click
 
 # from top left to bottom right, row by row.
 # e.g. r = black rook, N = white knight, # = empty square
-#BOARD.set_board("rnbqkbnrpppppppp################################PPPPPPPPRNBQKBNR")
-BOARD.set_board("####k###########################################N###########K###")
+BOARD.set_board("rnbqkbnrpppppppp################################PPPPPPPPRNBQKBNR")
+#BOARD.set_board("####k###########################################N###########K###")
 c.mainloop()
