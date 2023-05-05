@@ -15,6 +15,13 @@ BOARD.draw()
 res = None # result of the game
 turn = "white" # white or black
 
+def try_promote(board):
+    for i in range(8):
+        if board[0][i] and board[0][i].type == "P" and board[0][i].color == "white" and not board[0][i].promoted:
+            board[0][i].promote()
+        if board[7][i] and board[7][i].type == "P" and board[7][i].color == "black" and not board[7][i].promoted:
+            board[7][i].promote()
+
 def check_win(board):
     white_king = False
     black_king = False
@@ -51,6 +58,8 @@ def select(square):
         if BOARD.board[i][j].color == turn and square in BOARD.board[i][j].possible(BOARD.board): 
             BOARD.move(selected, square, special = BOARD.board[i][j].type == "Q")
             
+            try_promote(BOARD.board)
+
             res = check_win(BOARD.board) # check if game is over after last move
             if res: c.create_text(WIDTH/2, HEIGHT/2, text=f"{res} wins!", font="Arial 50", fill="black")
         

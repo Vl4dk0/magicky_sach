@@ -64,7 +64,7 @@ class Knight(Piece):
             if 0 <= i < 8 and 0 <= j < 8 and board[i][j] is None:
                 for Di in (-1, 0, 1):
                     for Dj in (-1, 0, 1):
-                        if 0 <= i + Di < 8 and 0 <= j + Dj < 8 and (Di, Dj) != (0, 0):
+                        if 0 <= i + Di < 8 and 0 <= j + Dj < 8 and (i + Di, j + Dj) != (self.i, self.j) and (Di, Dj) != (0, 0):
                             res.append((i + Di, j + Dj))
                             
         return res
@@ -155,7 +155,8 @@ class King(Piece):
         
         for di in (-1, 0, 1):
             for dj in (-1, 0, 1):
-                if 0 <= self.i + di < 8 and 0 <= self.j + dj < 8: res.append((self.i + di, self.j + dj))
+                if 0 <= self.i + di < 8 and 0 <= self.j + dj < 8 and (di, dj) != (0, 0): 
+                    res.append((self.i + di, self.j + dj))
                 
         return res
 
