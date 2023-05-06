@@ -1,3 +1,4 @@
+import winsound
 import tkinter
 import board
 from piece import *
@@ -63,8 +64,8 @@ def select(square):
         
         # if is_my_turn and it is possible to reach square
         if BOARD.board[i][j].color == turn and square in BOARD.board[i][j].possible(BOARD.board): 
-            BOARD.move(selected, square, special = BOARD.board[i][j].type == "Q")
-            
+            BOARD.move(selected, square, special = BOARD.board[i][j].type == "Q"); play_sound()
+
             try_promote(BOARD.board)
 
             res = check_draw(BOARD.board) # check if game is draw after last move
@@ -97,6 +98,8 @@ def select(square):
                     fill="blue"
                 ) )
     
+def play_sound():
+    winsound.PlaySound("img/chess_sfx.wav", winsound.SND_ASYNC)
 
 root.bind("<Button-1>", lambda event: select(BOARD.get_square(event.y, event.x)))
 root.bind("<Button-3>", lambda event: deselect()) # deselect on right click
@@ -105,5 +108,5 @@ root.bind("<Button-3>", lambda event: deselect()) # deselect on right click
 # from top left to bottom right, row by row.
 # e.g. r = black rook, N = white knight, # = empty square
 BOARD.set_board("rnbqkbnrpppppppp################################PPPPPPPPRNBQKBNR")
-#BOARD.set_board("####k###########################################N###########K###")
+#BOARD.set_board("####k###########################################N###########K###") # king and knight endgame
 c.mainloop()
