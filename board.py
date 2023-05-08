@@ -12,7 +12,7 @@ class Board:
         
         self.offset = self.tile_size/5 # because the images are not exactly tileXtile
     
-    
+        
     def move(self, f, t, special = False):
         fi, fj = f
         ti, tj = t
@@ -38,6 +38,11 @@ class Board:
             self.canvas.moveto(self.img_board[ti][tj], tj * self.tile_size + self.offset, ti * self.tile_size)
             self.board[ti][tj].i = ti
             self.board[ti][tj].j = tj
+            
+        return self.format_move(f, t)
+            
+    def format_move(self, f, t):
+        return chr(f[1] + 97) + str(8 - f[0]) + ' ' + chr(t[1] + 97) + str(8 - t[0])
     
     def free(self, pos):
         i, j = pos

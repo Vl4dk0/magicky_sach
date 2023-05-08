@@ -6,6 +6,8 @@ from piece import *
 WIDTH = 800
 HEIGHT = 800
 
+last_game = open("last_game.txt", "w")
+
 root = tkinter.Tk()
 c = tkinter.Canvas(width=WIDTH, height=HEIGHT, bg='white')
 c.pack()
@@ -64,7 +66,10 @@ def select(square):
         
         # if is_my_turn and it is possible to reach square
         if BOARD.board[i][j].color == turn and square in BOARD.board[i][j].possible(BOARD.board): 
-            BOARD.move(selected, square, special = BOARD.board[i][j].type == "Q"); play_sound()
+            mv = BOARD.move(selected, square, special = BOARD.board[i][j].type == "Q"); play_sound()
+            
+            res = f"{mv}"; res += ", " if turn == "white" else "\n"
+            last_game.write(res)
 
             try_promote(BOARD.board)
 
