@@ -11,8 +11,7 @@ class Board:
         self.tile_size = self.canvas.winfo_width()/8
         
         self.offset = self.tile_size/5 # because the images are not exactly tileXtile
-    
-        
+  
     def move(self, f, t, special = False):
         fi, fj = f
         ti, tj = t

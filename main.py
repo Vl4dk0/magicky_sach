@@ -2,11 +2,11 @@ import winsound
 import tkinter
 import board
 from piece import *
+import os
 
 WIDTH = 800
 HEIGHT = 800
 
-last_game = open("last_game.txt", "w")
 
 root = tkinter.Tk()
 c = tkinter.Canvas(width=WIDTH, height=HEIGHT, bg='white')
@@ -66,10 +66,7 @@ def select(square):
         
         # if is_my_turn and it is possible to reach square
         if BOARD.board[i][j].color == turn and square in BOARD.board[i][j].possible(BOARD.board): 
-            mv = BOARD.move(selected, square, special = BOARD.board[i][j].type == "Q"); play_sound()
-            
-            res = f"{mv}"; res += ", " if turn == "white" else "\n"
-            last_game.write(res)
+            BOARD.move(selected, square, special = BOARD.board[i][j].type == "Q"); play_sound()
 
             try_promote(BOARD.board)
 
@@ -115,3 +112,5 @@ root.bind("<Button-3>", lambda event: deselect()) # deselect on right click
 BOARD.set_board("rnbqkbnrpppppppp################################PPPPPPPPRNBQKBNR")
 #BOARD.set_board("####k###########################################N###########K###") # king and knight endgame
 c.mainloop()
+
+os.system("pause")
